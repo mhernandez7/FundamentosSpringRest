@@ -6,14 +6,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+@Repository                             //Permite realizar la paginacion para el proyecto
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     @Query("select u from User u WHERE u.email=?1")
     Optional<User> findByUserEmail(String email);
@@ -39,5 +40,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //Tambien se puede con Containing cambiando el nombre a findByNameContainingOrderByIdDesc
     //con lo que se evida traer en el metodo like las designaciones %%
     List<User> findByNameLikeOrderByIdDesc(String name);
+
+    List<User> findAll();
 
 }
