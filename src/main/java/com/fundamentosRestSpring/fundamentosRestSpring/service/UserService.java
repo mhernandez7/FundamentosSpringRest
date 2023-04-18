@@ -20,5 +20,21 @@ public class UserService {
 
     public List<User> getAllUsers(){return userRepository.findAll();}
 
+    //UserService inyecta a userRepository lo cual le permite hacer uso de los metodos de spring (Save)
+    public User save (User newUser){
+        return userRepository.save(newUser);
+    }
 
+    public void  delete(Long id){
+         userRepository.delete(new User(id));
+    }
+
+    public User update(User user, Long id) {
+        return userRepository.findById(id).map(user1 -> {
+            user.setName(user.getName());
+            user.setEmail(user.getEmail());
+            user.setBirthDate(user.getBirthDate());
+            return  userRepository.save(user);
+        }).get();
+    }
 }

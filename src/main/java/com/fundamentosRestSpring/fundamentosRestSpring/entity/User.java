@@ -32,6 +32,10 @@ public class User {
         this.email = email;
         this.birthDate = birthDate;
     }
+    //Como no se esta inyectando dependencias, creamos nuestro constructo para hacer uso del metodo delete
+    public User(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
